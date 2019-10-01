@@ -6,15 +6,29 @@
  * Note that getViews could be used instead to access other scripts.
  *
  * A port to the active tab is open to send messages to its in-content.js script.
- *
  */
-
 
 // Send a message to background.js
 function submitForm() {
-    console.log("Submitting")
-    chrome.runtime.sendMessage('submitting!')
-    // chrome.tabs.update({url: "http://www.baidu.com"});
+    try {
+        const form = document.getElementById("form1");
+        const elements = form.elements;
+
+        const data ={};
+        for(let i = 0 ; i < elements.length ; i++){
+            const item = elements.item(i);
+            data[item.name] = item.value;
+        }
+
+        chrome.runtime.sendMessage({
+            type: 'FORM_SUBMISSION',
+            formData: data
+        })
+    } catch (err) {
+        // This is necessary to unify error logs.
+        chrome.extension.getBackgroundPage().console.log(err)
+    }
+
 }
 
 // Start the popup script, this could be anything from a simple script to a webapp
@@ -24,7 +38,10 @@ const initPopupScript = () => {
     // Do anything with the exposed variables from background.js
     console.log(backgroundWindow.sampleBackgroundGlobal);
 
-    document.getElementById("submit").addEventListener('click', submitForm);
+    document.getElementById("submitForm").addEventListener('click', function(event) {
+        event.preventDefault();
+        submitForm();
+    });
 };
 
 // Fire scripts after page has loaded
