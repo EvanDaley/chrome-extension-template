@@ -18,6 +18,12 @@ const sampleBackgroundGlobal = {
 //  3. Reference:
 // TODO: https://stackoverflow.com/questions/5364062/how-can-i-save-information-locally-in-my-chrome-extension
 
+// TODO: Detect time on page and submit that with the form data.
+// TODO: Navigate to chrome. Encourage the user to follow a few more links for this search.
+// TODO: Warn the user if they go too fast.
+// TODO: Create/track user accounts.
+// TODO: User roles.
+
 // Listen to short lived messages from in-content.js
 chrome.runtime.onMessage.addListener((message, sender) => {
     // Perform any other actions depending on the message
