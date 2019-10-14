@@ -12,21 +12,6 @@ const sampleBackgroundGlobal = {
     message: 'This object comes from background.js'
 };
 
-// TODO: Experiment with saving:
-//  1. save one of the form fields to storage on input change
-//  2. Load it back on refresh / popup.
-//  3. Reference:
-// TODO: https://stackoverflow.com/questions/5364062/how-can-i-save-information-locally-in-my-chrome-extension
-
-// TODO: Detect time on page and submit that with the form data.
-// TODO: Navigate to chrome. Encourage the user to follow a few more links for this search.
-// TODO: Warn the user if they go too fast.
-// TODO: Create/track user accounts.
-// TODO: Chrome account ids can be accessed:
-// https://developer.chrome.com/webstore/identify_user
-// TODO: Get account id, and lookup user, or ask for email to create account.
-// Account roles could be used to show different features.
-
 // Listen to short lived messages from in-content.js
 chrome.runtime.onMessage.addListener((message, sender) => {
     // Perform any other actions depending on the message
