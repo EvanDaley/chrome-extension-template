@@ -11,9 +11,6 @@
 // Send a message to background.js
 function submitForm() {
   try {
-    console.log("HERE")
-    chrome.extension.getBackgroundPage().console.log('asdfasdf')
-
     const form = document.getElementById("searchForm");
     const elements = form.elements;
 
@@ -51,7 +48,6 @@ const initPopupScript = () => {
     // This is necessary to unify error logs.
     chrome.extension.getBackgroundPage().console.log(err)
   }
-
 };
 
 // Fire scripts after page has loaded
