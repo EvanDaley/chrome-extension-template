@@ -10,38 +10,48 @@
 
 // Send a message to background.js
 function submitForm() {
-    try {
-        const form = document.getElementById("form1");
-        const elements = form.elements;
+  try {
+    console.log("HERE")
+    chrome.extension.getBackgroundPage().console.log('asdfasdf')
 
-        const data ={};
-        for(let i = 0 ; i < elements.length ; i++){
-            const item = elements.item(i);
-            data[item.name] = item.value;
-        }
+    const form = document.getElementById("searchForm");
+    const elements = form.elements;
 
-        chrome.runtime.sendMessage({
-            type: 'FORM_SUBMISSION',
-            formData: data
-        })
-    } catch (err) {
-        // This is necessary to unify error logs.
-        chrome.extension.getBackgroundPage().console.log(err)
+    const data = {};
+    for (let i = 0; i < elements.length; i++) {
+      const item = elements.item(i);
+      data[item.name] = item.value;
     }
+
+    chrome.runtime.sendMessage({
+      type: 'FORM_SUBMISSION',
+      formData: data
+    })
+  } catch (err) {
+    // This is necessary to unify error logs.
+    chrome.extension.getBackgroundPage().console.log(err)
+  }
 
 }
 
 // Start the popup script, this could be anything from a simple script to a webapp
 const initPopupScript = () => {
+  try {
+
     // Access the background window object
     const backgroundWindow = chrome.extension.getBackgroundPage();
     // Do anything with the exposed variables from background.js
     console.log(backgroundWindow.sampleBackgroundGlobal);
 
-    document.getElementById("submitForm").addEventListener('click', function(event) {
-        event.preventDefault();
-        submitForm();
+    document.getElementById("searchForm").addEventListener('submit', function (event) {
+      event.preventDefault();
+      submitForm();
     });
+  } catch (err) {
+    // This is necessary to unify error logs.
+    chrome.extension.getBackgroundPage().console.log(err)
+  }
+
 };
 
 // Fire scripts after page has loaded
