@@ -12,7 +12,13 @@ let port = null;
 const sendPortMessage = data => port.postMessage(data);
 
 // Handle incoming popup messages
-const popupMessageHandler = message => console.log('in-content.js - message from popup:', message);
+const popupMessageHandler = message => {
+    console.log('in-content.js - message from popup:', message);
+
+    if (message.type === 'SEARCH') {
+        console.log("searching the dom")
+    }
+}
 
 // Start scripts after setting up the connection to popup
 chrome.extension.onConnect.addListener(popupPort => {
@@ -28,9 +34,11 @@ chrome.extension.onConnect.addListener(popupPort => {
     sendPortMessage('message from in-content.js');
 });
 
+
 // Response handler for short lived messages
-const handleBackgroundResponse = response =>
+const handleBackgroundResponse = response => {
     console.log('in-content.js - Received response:', response);
+}
 
 // Send a message to background.js
 chrome.runtime.sendMessage('Message from in-content.js!', handleBackgroundResponse);
