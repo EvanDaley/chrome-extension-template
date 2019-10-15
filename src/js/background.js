@@ -9,14 +9,15 @@
 
 // A sample object that will be exposed further down and used on popup.js
 const sampleBackgroundGlobal = {
-  message: 'This object comes from background.js'
+    message: 'This object comes from background.js'
 };
 
 // Listen to short lived messages from in-content.js
-chrome.runtime.onMessage.addListener((message, sender) => {
-  if (message.type === 'FORM_SUBMISSION') {
-    console.log(message)
-  }
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+    // Perform any ther actions depending on the message
+    console.log('background.js - received message from in-content.js:', message);
+    // Respond message
+    sendResponse('👍');
 });
 
 // Make variables accessible from chrome.extension.getBackgroundPage()
