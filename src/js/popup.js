@@ -65,12 +65,12 @@ const submitForm = () => {
       data[item.name] = item.value;
     }
 
-    let messsage = {
+    let message = {
       type: 'SEARCH',
       formData: data.search
     }
 
-    sendPortMessage(messsage);
+    sendPortMessage(message);
   } catch (err) {
     // This is necessary to unify error logs.
     chrome.extension.getBackgroundPage().console.log(err)
