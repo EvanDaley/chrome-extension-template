@@ -5,6 +5,8 @@
 * Note that in this scenario the port is open from the popup, but other extensions may open it from the background page or not even have either background.js or popup.js.
 * */
 
+$("body").append('Test');
+
 // Extension port to communicate with the popup, also helps detecting when it closes
 let port = null;
 
@@ -15,8 +17,16 @@ const sendPortMessage = data => port.postMessage(data);
 const popupMessageHandler = message => {
     console.log('in-content.js - message from popup:', message);
 
-    if (message.type === 'SEARCH') {
-        console.log("searching the dom")
+    try {
+        if (message.type === 'SEARCH') {
+            console.log("searching the dom")
+
+            jQuery("h1").hide();
+
+            console.log("done")
+        }
+    } catch (err) {
+        console.log(err)
     }
 }
 
